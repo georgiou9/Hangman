@@ -1,13 +1,24 @@
 package com.company;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Game {
     public static final int MAX_MISSES = 7;
+
     private String answer;
     private String hits;
     private String misses;
 
-    public Game(String answer) {
-        this.answer = answer.toLowerCase();
+    public Game() {
+        try {
+            this.answer = getRandomWord();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         hits = "";
         misses = "";
     }
@@ -61,5 +72,25 @@ public class Game {
 //    Let the game know if it's won or not
     public boolean isWon() {
         return getCurrentProgress().indexOf('-') == -1;
+    }
+
+    // Return a random word from the specified txt file
+    public static String getRandomWord() throws IOException {
+        final String FILE_NAME = "resources/dictionary.txt";
+        List<String> list = new ArrayList<>();
+
+        try {
+            Scanner sc = new Scanner(new File(FILE_NAME));
+            while(sc.hasNext()) {
+                list.add(sc.next());
+            }
+        } catch (IOException e) {
+            System.out.print("An Error Ocured \n");
+            e.printStackTrace();
+        }
+
+        int size = list.size();
+        int random = (int) (size * Math.random());
+        return list.get(random);
     }
 }

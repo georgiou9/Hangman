@@ -3,14 +3,14 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
+//
+//        if (args.length == 0) {
+//            System.out.println("Usage : java Hangman <answer>");
+//            System.out.println("answer is required");
+//            System.exit(1);
+//        }
 
-        if (args.length == 0) {
-            System.out.println("Usage : java Hangman <answer>");
-            System.out.println("answer is required");
-            System.exit(1);
-        }
-
-        Game game = new Game(args[0]);
+        Game game = new Game();
         Prompter prompter = new Prompter(game);
         prompter.displayProgress();
         boolean isHit = prompter.promptForGuess();
